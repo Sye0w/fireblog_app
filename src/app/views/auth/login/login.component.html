@@ -1,18 +1,19 @@
+<p-toast></p-toast>
 <section>
   <h4>Login</h4>
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-grp">
-      <input type="text" placeholder="email">
+      <input formControlName="email" type="email" placeholder="Email">
     </div>
     <div class="form-grp">
-      <input type="text" placeholder="password">
+      <input formControlName="password" type="password" placeholder="Password">
     </div>
+    <button type="submit" mat-button [disabled]="isLoading">
+      <p>
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </p>
+    </button>
   </form>
-  <button type="button" mat-button>
-    <p>
-      login
-    </p>
-  </button>
   <footer>
     <span>Don't have an account?</span>
     <a routerLink="/auth/register" class="link-effect">

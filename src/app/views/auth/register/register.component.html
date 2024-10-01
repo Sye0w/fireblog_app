@@ -1,17 +1,18 @@
+<p-toast></p-toast>
 <section>
   <h4>Register</h4>
-  <form>
+  <form [formGroup]="registerForm">
     <div class="form-grp">
-      <input type="text" placeholder="email">
+      <input formControlName="email" type="text" placeholder="email">
     </div>
     <div class="form-grp">
-      <input type="text" placeholder="password">
+      <input formControlName="password"  type="password" placeholder="password">
     </div>
     <div class="form-grp">
-      <input type="text" placeholder="confirm password">
+      <input formControlName="confirmPassword"  type="password" placeholder="confirm password">
     </div>
   </form>
-  <button type="button" mat-button>
+  <button type="button" mat-button (click)="register()">
     <p>
       create account
     </p>

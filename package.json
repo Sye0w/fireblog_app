@@ -27,6 +27,8 @@
     "@nguniversal/express-engine": "^7.0.2",
     "express": "^4.18.2",
     "firebase": "^10.13.2",
+    "primeicons": "^7.0.0",
+    "primeng": "^17.18.11",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

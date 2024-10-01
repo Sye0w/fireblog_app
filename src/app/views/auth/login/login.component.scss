@@ -4,3 +4,27 @@
 section{
   @include formCard-style;
 }
+
+
+::ng-deep .p-toast {
+  .p-toast-message {
+    background-color: transparent;
+
+
+    .p-toast-message-content {
+      background-color: transparent;
+      padding: 1rem;
+
+
+
+      .p-toast-message-text {
+        margin-left: 1rem;
+      }
+    }
+
+    &.p-toast-message-error {
+      background-color: transparent;
+      border-color: $burntsienna;
+    }
+  }
+}
