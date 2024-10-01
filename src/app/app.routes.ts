@@ -14,12 +14,30 @@ export const routes: Routes = [
         path: 'register',
         loadComponent: () => import('./views/auth/register/register.component')
         .then(mod => mod.RegisterComponent)
-      },
+      }
+    ],
+  },
+
+  {
+    path: 'fireblog',
+    loadComponent:() => import('../app/views/auth/user-profile/user-profile.component')
+    .then(mod => mod.UserProfileComponent),
+    children: [
       {
         path: 'profile',
         loadComponent: () => import('./views/auth/user-profile/user-profile.component')
         .then(mod => mod.UserProfileComponent)
+      },
+      {
+        path:'posts',
+        loadComponent: () => import('../app/views/fireblog-page/fireblog-page.component')
+        .then(mod => mod.FireblogPageComponent)
+      },
+      {
+        path:'blog-detail',
+        loadComponent: () => import('../app/views/fireblog-detail/fireblog-detail.component')
+        .then(mod => mod.FireblogDetailComponent)
       }
-    ],
+    ]
   }
 ];

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthErrorType, AuthService,  } from '../../../services/auth/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +43,10 @@ export class LoginComponent implements OnInit {
       const { email, password } = this.loginForm.value;
       try {
         await this.authService.login(email, password);
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Login successful!'});
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Login successful!',life: 3000})
+        setTimeout(() => {
+          this.router.navigate(['/fireblog/posts'])
+        }, 3000);
       } catch (error: any) {
         this.handleRegistrationError(error);
       } finally {

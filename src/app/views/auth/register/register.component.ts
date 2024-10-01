@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService, AuthErrorType } from '../../../services/auth/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +51,10 @@ export class RegisterComponent implements OnInit {
       const { email, password } = this.registerForm.value;
       try {
         await this.authService.register(email, password);
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Registration successful!'});
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Registration successful!', life: 3000});
+        setTimeout(() => {
+          this.router.navigate(['/auth/login'])
+        }, 3000);
       } catch (error: any) {
         this.handleRegistrationError(error);
       } finally {
