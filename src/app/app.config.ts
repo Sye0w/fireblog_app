@@ -18,6 +18,13 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
-    provideAnalytics(() => getAnalytics()), provideFirebaseApp(() => initializeApp({"projectId":"fireblog-app-87945","appId":"1:124792528365:web:789858ad104062165e5be4","storageBucket":"fireblog-app-87945.appspot.com","apiKey":"AIzaSyAN9yO9-iLbNS3pIva7K8odPw9XszhK1Mg","authDomain":"fireblog-app-87945.firebaseapp.com","messagingSenderId":"124792528365","measurementId":"G-68MSGEPML3"})), provideAuth(() => getAuth()), provideAnalytics(() => getAnalytics()), ScreenTrackingService, UserTrackingService, provideFirestore(() => getFirestore()), provideDatabase(() => getDatabase()), providePerformance(() => getPerformance())
+    provideAnalytics(() => getAnalytics()),
+    provideFirebaseApp(() => initializeApp({"projectId":"fireblog-app-87945","appId":"1:124792528365:web:789858ad104062165e5be4","storageBucket":"fireblog-app-87945.appspot.com","apiKey":"AIzaSyAN9yO9-iLbNS3pIva7K8odPw9XszhK1Mg","authDomain":"fireblog-app-87945.firebaseapp.com","messagingSenderId":"124792528365","measurementId":"G-68MSGEPML3"})),
+    provideAuth(() => getAuth()), provideAnalytics(() => getAnalytics()),
+    ScreenTrackingService,
+    UserTrackingService,
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => getDatabase()),
+    providePerformance(() => getPerformance())
   ]
 };

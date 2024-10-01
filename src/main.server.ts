@@ -7,5 +7,10 @@ import { environment } from './environments/environment.development';
 // Initialize Firebase for SSR
 const app = initializeApp(environment.firebase);
 
-bootstrapApplication(AppComponent, config)
-  .catch((err) => console.error(err));
+export default function bootstrap() {
+  return bootstrapApplication(AppComponent, config);
+}
+
+export const AppServerModule = {
+  bootstrap: [AppComponent],
+};
