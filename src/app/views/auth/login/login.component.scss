@@ -1,0 +1,6 @@
+@use '../../../../partials/variables' as *;
+@use '../../../../partials/mixins' as *;
+
+section{
+  @include formCard-style;
+}

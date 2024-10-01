@@ -9,6 +9,7 @@ import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingServ
 import { environment } from '../environments/environment.development';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 export const appConfig: ApplicationConfig = {
@@ -25,6 +26,6 @@ export const appConfig: ApplicationConfig = {
     UserTrackingService,
     provideFirestore(() => getFirestore()),
     provideDatabase(() => getDatabase()),
-    providePerformance(() => getPerformance())
+    providePerformance(() => getPerformance()), provideAnimationsAsync()
   ]
 };
