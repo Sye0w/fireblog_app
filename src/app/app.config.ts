@@ -10,7 +10,7 @@ import { environment } from '../environments/environment.development';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { FireblogFacadeService } from './services/fireblog/fireblog-facade.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,12 +20,11 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     provideAnalytics(() => getAnalytics()),
-    provideFirebaseApp(() => initializeApp({"projectId":"fireblog-app-87945","appId":"1:124792528365:web:789858ad104062165e5be4","storageBucket":"fireblog-app-87945.appspot.com","apiKey":"AIzaSyAN9yO9-iLbNS3pIva7K8odPw9XszhK1Mg","authDomain":"fireblog-app-87945.firebaseapp.com","messagingSenderId":"124792528365","measurementId":"G-68MSGEPML3"})),
-    provideAuth(() => getAuth()), provideAnalytics(() => getAnalytics()),
-    ScreenTrackingService,
-    UserTrackingService,
     provideDatabase(() => getDatabase()),
     providePerformance(() => getPerformance()),
-    provideAnimationsAsync()
+    ScreenTrackingService,
+    UserTrackingService,
+    provideAnimationsAsync(),
+    { provide: FireblogFacadeService, useClass: FireblogFacadeService }
   ]
 };
