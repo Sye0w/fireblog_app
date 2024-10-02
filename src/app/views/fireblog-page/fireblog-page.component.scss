@@ -1,0 +1,23 @@
+@use '../../../partials/variables' as *;
+
+section{
+  height: 100% !important;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.25rem;
+
+
+  h2{
+    font-family: $titlefont
+  }
+
+  .posts-section {
+    flex: 1;
+    padding: 1.25rem;
+    padding-bottom: 7rem;
+  }
+
+
+
+}

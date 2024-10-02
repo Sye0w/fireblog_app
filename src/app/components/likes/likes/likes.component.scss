@@ -1,0 +1,50 @@
+@use '../../../../partials/variables' as *;
+
+.likes-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  border-radius: 0.625rem;
+  width: 2.5rem;
+  height: 6.25rem;
+  background-color: $whisper;
+
+  svg {
+    cursor: pointer;
+    &:hover {
+      path {
+        transition: .3s ease-in-out;
+        fill: $blueviolet;
+      }
+    }
+  }
+
+  .likes-count {
+    position: relative;
+    display: inline-block;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+::ng-deep .mat-badge-content {
+  font-size: 8px;
+  width: 8px;
+  height: 8px;
+  line-height: 8px;
+  right: -6px !important;
+  top: -6px !important;
+}
+
+::ng-deep .mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+  right: -6px;
+}
+
+::ng-deep .mat-badge-medium.mat-badge-above .mat-badge-content {
+  top: -6px;
+}

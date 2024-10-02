@@ -1,0 +1,86 @@
+@use '../../../partials/variables' as *;
+
+section{
+  display: flex;
+  gap: 4rem;
+  position: fixed !important;
+  padding: 1.25rem;
+  bottom: 0;
+  background-color: #fff;
+  width: 100%;
+  height: 7rem;
+  left: 0;
+  right: 0;
+  height: 7rem;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+
+  .footer-grp{
+    display: flex;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+
+    .edit-profile {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: $blueviolet;
+      transition: color 0.3s ease;
+      position: relative;
+      bottom: 1.25rem;
+      right: .75rem;
+    }
+
+
+  }
+
+  .post-input {
+    display: flex;
+    gap: .75rem;
+
+    textarea {
+      flex-grow: 1;
+      min-height: 80px;
+      width: 30rem;
+      padding: .75rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      resize: vertical;
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #5357B6;
+      box-shadow: 0 0 0 2px rgba(83, 87, 182, 0.2);
+    }
+  }
+
+  .create-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    justify-self: end ;
+    background: $blueviolet;
+    color: #fff;
+    border: none;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+}
