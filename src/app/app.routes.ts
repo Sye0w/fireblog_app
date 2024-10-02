@@ -20,8 +20,8 @@ export const routes: Routes = [
 
   {
     path: 'fireblog',
-    loadComponent:() => import('../app/views/auth/user-profile/user-profile.component')
-    .then(mod => mod.UserProfileComponent),
+    loadComponent:() => import('../app/views/fireblog/fireblog.component')
+    .then( mod => mod.FireblogComponent),
     children: [
       {
         path: 'profile',
