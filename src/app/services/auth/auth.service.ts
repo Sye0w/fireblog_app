@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, User, AuthError } from '@angular/fire/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { IUser } from '../blog.interface';
 
 export enum AuthErrorType {
   EmailAlreadyInUse = 'auth/email-already-in-use',
@@ -25,9 +26,10 @@ export class AuthService {
     });
   }
 
-  async register(email: string, password: string): Promise<void> {
+  async register(email: string, password: string): Promise<IUser> {
     try {
-      await createUserWithEmailAndPassword(this.auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      return this.createUserObject(userCredential.user);
     } catch (error) {
       throw this.handleAuthError(error as AuthError);
     }
@@ -83,5 +85,15 @@ export class AuthService {
         errorType = AuthErrorType.Default;
     }
     return { type: errorType, message: error.message };
+  }
+
+   private createUserObject(user: User): IUser {
+    return {
+      email: user.email!,
+      password: '', // We don't store the password
+      image: user.photoURL || '',
+      username: user.displayName || '',
+      uid: user.uid
+    };
   }
 }

@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { IUser } from '../../../services/blog.interface';
+import { FireblogFacadeService } from '../../../services/fireblog/fireblog-facade.service';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +25,8 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private blogFacade: FireblogFacadeService
   ) {}
 
   ngOnInit(): void {
@@ -50,12 +53,13 @@ export class RegisterComponent implements OnInit {
       this.isLoading = true;
       const { email, password } = this.registerForm.value;
       try {
-        await this.authService.register(email, password);
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Registration successful!', life: 3000});
-        setTimeout(() => {
-          this.router.navigate(['/auth/login'])
-        }, 3000);
+        const user: IUser = await this.authService.register(email, password);
+        await this.blogFacade.createEmptyBlogPost(user);
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Registration successful!', life: 2500});
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        await this.router.navigate(['/auth/login']);
       } catch (error: any) {
+        console.error('Registration error:', error);
         this.handleRegistrationError(error);
       } finally {
         this.isLoading = false;
@@ -65,24 +69,31 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  private handleRegistrationError(error: { type: AuthErrorType, message: string }) {
+  private handleRegistrationError(error: any) {
+    console.error('Full error object:', error);
     let errorMessage: string;
-    switch (error.type) {
-      case AuthErrorType.EmailAlreadyInUse:
-        errorMessage = 'This email is already in use. Please try a different email.';
-        break;
-      case AuthErrorType.WeakPassword:
-        errorMessage = 'The password is too weak. Please choose a stronger password.';
-        break;
-      case AuthErrorType.InvalidEmail:
-        errorMessage = 'The email address is invalid. Please enter a valid email.';
-        break;
-      case AuthErrorType.TooManyRequests:
-        errorMessage = 'Too many unsuccessful attempts. Please try again later.';
-        break;
-      default:
-        errorMessage = 'An unexpected error occurred. Please try again.';
+
+    if (error && error.type) {
+      switch (error.type) {
+        case AuthErrorType.EmailAlreadyInUse:
+          errorMessage = 'This email is already in use. Please try a different email.';
+          break;
+        case AuthErrorType.WeakPassword:
+          errorMessage = 'The password is too weak. Please choose a stronger password.';
+          break;
+        case AuthErrorType.InvalidEmail:
+          errorMessage = 'The email address is invalid. Please enter a valid email.';
+          break;
+        case AuthErrorType.TooManyRequests:
+          errorMessage = 'Too many unsuccessful attempts. Please try again later.';
+          break;
+        default:
+          errorMessage = `An unexpected error occurred: ${error.message || 'Unknown error'}`;
+      }
+    } else {
+      errorMessage = 'An unexpected error occurred. Please try again.';
     }
+
     this.messageService.add({severity:'error', summary: 'Error', detail: errorMessage});
   }
 }

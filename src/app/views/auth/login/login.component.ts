@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       const { email, password } = this.loginForm.value;
       try {
         await this.authService.login(email, password);
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Login successful!',life: 3000})
+        this.messageService.add({severity:'success', summary: 'Success', detail: 'Login successful!',life: 3000});
         setTimeout(() => {
           this.router.navigate(['/fireblog/posts'])
         }, 3000);
