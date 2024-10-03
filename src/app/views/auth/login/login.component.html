@@ -1,19 +1,36 @@
 <p-toast></p-toast>
 <section>
-  <h4>Login</h4>
+  <h4>{{ isForgotPasswordMode ? 'Forgot Password' : 'Login' }}</h4>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-grp">
       <input formControlName="email" type="email" placeholder="Email">
     </div>
-    <div class="form-grp">
+    <div class="form-grp" *ngIf="!isForgotPasswordMode">
       <input formControlName="password" type="password" placeholder="Password">
     </div>
-    <button type="submit" mat-button [disabled]="isLoading">
-      <p>
-        {{ isLoading ? 'Logging in...' : 'Login' }}
-      </p>
+    <button type="submit" mat-raised-button color="primary" [disabled]="isLoading">
+      {{ isLoading ? 'Processing...' : (isForgotPasswordMode ? 'Reset Password' : 'Login') }}
     </button>
   </form>
+
+  <div>
+    <p class="forgot-password" (click)="toggleForgotPasswordMode()">
+      {{ isForgotPasswordMode ? 'Back to Login' : 'Forgot Password?' }}
+    </p>
+
+    <div class="divider">
+      <mat-divider></mat-divider>
+      <span>OR</span>
+      <mat-divider></mat-divider>
+    </div>
+
+    <button (click)="googleSignIn()" mat-raised-button class="google-btn" [disabled]="isLoading">
+      <img src="../../../../assets/images/google.png" alt="Google logo" class="google-logo">
+      {{ isLoading ? 'Processing...' : 'Sign in with Google' }}
+    </button>
+
+  </div>
+
   <footer>
     <span>Don't have an account?</span>
     <a routerLink="/auth/register/" class="link-effect">

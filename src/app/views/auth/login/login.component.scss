@@ -1,21 +1,65 @@
 @use '../../../../partials/variables' as *;
 @use '../../../../partials/mixins' as *;
 
-section{
+section {
   @include formCard-style;
 }
 
+.forgot-password {
+  cursor: pointer;
+  color: $burntsienna;
+  text-decoration: underline;
+  margin-top: 1rem;
+  text-align: right;
+}
+
+button[mat-raised-button] {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+
+  mat-divider {
+    flex-grow: 1;
+  }
+
+  span {
+    padding: 0 1rem;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 0.875rem;
+  }
+}
+
+.google-btn {
+  display: flex;
+  align-items: center !important;
+  justify-content: center;
+  background-color: #fff !important;
+  color: rgba(0, 0, 0, 0.54);
+  border: 1px solid #ccc;
+
+  &:hover {
+    background-color: #f8f8f8;
+  }
+
+  .google-logo {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+  }
+}
 
 ::ng-deep .p-toast {
   .p-toast-message {
     background-color: transparent;
 
-
     .p-toast-message-content {
       background-color: transparent;
       padding: 1rem;
-
-
 
       .p-toast-message-text {
         margin-left: 1rem;

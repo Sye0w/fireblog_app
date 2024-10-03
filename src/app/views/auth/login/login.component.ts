@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
-import { AuthErrorType, AuthService,  } from '../../../services/auth/auth.service';
+import { AuthErrorType, AuthService } from '../../../services/auth/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, MatButtonModule, ReactiveFormsModule, CommonModule, ToastModule],
+  imports: [RouterModule,MatDividerModule, MatButtonModule, ReactiveFormsModule, CommonModule, ToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: [MessageService]
@@ -18,6 +19,7 @@ import { ToastModule } from 'primeng/toast';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isLoading: boolean = false;
+  isForgotPasswordMode: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -42,13 +44,19 @@ export class LoginComponent implements OnInit {
       this.isLoading = true;
       const { email, password } = this.loginForm.value;
       try {
-        await this.authService.login(email, password);
-        this.messageService.add({severity:'success', summary: 'Success', detail: 'Login successful!',life: 3000});
-        setTimeout(() => {
-          this.router.navigate(['/fireblog/posts'])
-        }, 3000);
+        if (this.isForgotPasswordMode) {
+          await this.authService.forgotPassword(email);
+          this.messageService.add({severity:'success', summary: 'Success', detail: 'Password reset email sent!', life: 3000});
+          this.isForgotPasswordMode = false;
+        } else {
+          await this.authService.login(email, password);
+          this.messageService.add({severity:'success', summary: 'Success', detail: 'Login successful!', life: 3000});
+          setTimeout(() => {
+            this.router.navigate(['/fireblog/posts']);
+          }, 3000);
+        }
       } catch (error: any) {
-        this.handleRegistrationError(error);
+        this.handleAuthError(error);
       } finally {
         this.isLoading = false;
       }
@@ -57,14 +65,39 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private handleRegistrationError(error: { type: AuthErrorType, message: string }) {
+  async googleSignIn() {
+    this.isLoading = true;
+    try {
+      await this.authService.googleSignIn();
+      this.messageService.add({severity:'success', summary: 'Success', detail: 'Google sign-in successful!', life: 3000});
+      setTimeout(() => {
+        this.router.navigate(['/fireblog/posts']);
+      }, 3000);
+    } catch (error: any) {
+      this.handleAuthError(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  toggleForgotPasswordMode() {
+    this.isForgotPasswordMode = !this.isForgotPasswordMode;
+    if (this.isForgotPasswordMode) {
+      this.loginForm.get('password')?.clearValidators();
+    } else {
+      this.loginForm.get('password')?.setValidators([Validators.required]);
+    }
+    this.loginForm.get('password')?.updateValueAndValidity();
+  }
+
+  private handleAuthError(error: { type: AuthErrorType, message: string }) {
     let errorMessage: string;
     switch (error.type) {
-      case AuthErrorType.EmailAlreadyInUse:
-        errorMessage = 'This email is already in use. Please try a different email.';
+      case AuthErrorType.UserNotFound:
+        errorMessage = 'User not found. Please check your email or sign up.';
         break;
-      case AuthErrorType.WeakPassword:
-        errorMessage = 'The password is too weak. Please choose a stronger password.';
+      case AuthErrorType.WrongPassword:
+        errorMessage = 'Incorrect password. Please try again.';
         break;
       case AuthErrorType.InvalidEmail:
         errorMessage = 'The email address is invalid. Please enter a valid email.';
