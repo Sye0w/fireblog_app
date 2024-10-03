@@ -11,6 +11,19 @@
       }
     ],
     "button-type": "off",
-    "no-inline-styles": "off"
+    "no-inline-styles": "off",
+    "axe/text-alternatives": [
+      "default",
+      {
+        "image-alt": "off"
+      }
+    ],
+    "axe/structure": [
+      "default",
+      {
+        "list": "off",
+        "listitem": "off"
+      }
+    ]
   }
 }

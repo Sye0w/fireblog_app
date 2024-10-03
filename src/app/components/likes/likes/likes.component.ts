@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
+import { IBlog } from '../../../services/blog.interface';
 
 @Component({
   selector: 'app-likes',
@@ -11,5 +12,5 @@ import { MatBadgeModule } from '@angular/material/badge';
 })
 
 export class LikesComponent {
-  likesCount: number = 2;
+  @Input() likesCount!: string;
 }

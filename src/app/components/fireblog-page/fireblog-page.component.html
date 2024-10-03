@@ -1,5 +1,5 @@
 <mat-sidenav-container class="fireblog-container">
-  <mat-sidenav #sidenav [opened]="!isSidebarOpen" mode="over" position="start">
+  <mat-sidenav #sidenav [opened]="isSidebarOpen" mode="over" position="start">
     <!-- Add your sidebar content here -->
     <app-user-profile/>
   </mat-sidenav>
@@ -8,7 +8,9 @@
     <div class="fireblog-content">
       <section class="posts-section">
         <h2>Fireblog Posts</h2>
-        <app-post-card></app-post-card>
+        <ul>
+          <app-post-card *ngFor="let post of blogPosts" [blogPost]="post"></app-post-card>
+        </ul>
       </section>
       <app-create-post class="create-post-section" (toggleSidebar)="toggleSidebar($event)"></app-create-post>
     </div>

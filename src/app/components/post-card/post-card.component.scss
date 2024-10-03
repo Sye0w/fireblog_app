@@ -1,64 +1,63 @@
 @use '../../../partials/variables' as *;
 
-
-.posts{
+.post-card {
+  width: 37rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  padding: 1.5rem;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  .post-card{
-    // max-height: 10.4375rem !important;
-    width: 70%;
-    border-radius: .5rem;
-    background-color: #fff;
-    padding: 1.5rem;
+  gap: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+  }
+
+  .content {
     display: flex;
-    gap: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
 
-
-    .content{
+    .content-head {
       display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      .content-head{
+      align-items: center;
+      width: 100%;
+      justify-content: space-between !important;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+
+      .title {
         display: flex;
+        gap: 0.75rem;
         align-items: center;
 
-        width: 100%;
-        justify-content: space-between !important;
-        gap: .75rem;
-        font-size: .75rem;
-
-        .title{
-          display: flex;
-          gap: .75rem;
-          align-items: center;
-        }
-
-        h3{
+        h3 {
           font-weight: 600;
           color: $oxfordblue;
         }
-        img{
+
+        img {
           width: 24px;
           height: 24px;
         }
-
-        .comments{
-          display: flex;
-          justify-self: end !important;
-          cursor: pointer;
-          p{
-            font-weight: 500;
-            color: $blueviolet;
-          }
-        }
       }
-      p{
-        font-weight: 400;
-        color: $palesky;
+
+      .comments {
+        display: flex;
+        justify-self: end !important;
+        cursor: pointer;
+
+        p {
+          font-weight: 500;
+          color: $blueviolet;
+        }
       }
     }
 
+    p {
+      font-weight: 400;
+      color: $palesky;
+    }
   }
-
 }
