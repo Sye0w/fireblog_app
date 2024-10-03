@@ -2,7 +2,7 @@
 @use '../../../partials/mixins' as *;
 
 .fireblog-container {
-  padding-top: 2rem;
+  // padding-top: 2rem;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -25,7 +25,6 @@
   mat-sidenav-content {
     display: flex;
     justify-content: center !important;
-
     overflow: hidden;
 
     .fireblog-content {
@@ -37,17 +36,27 @@
       .posts-section {
         display: flex;
         flex-direction: column;
+        justify-items: center;
+        align-items: center;
+        border: 2px solid;
         padding: 1.25rem;
-        padding-bottom: 7rem;
+
+        div{
+          display: flex;
+          color: $oxfordblue;
+          font-weight: 500;
+        }
 
         ul {
-          padding: 1.25rem 1.25rem 0 3rem;
+          width: 80%;
+          padding: 1.25rem 1.25rem 10rem  3rem;
+          margin-bottom: 6rem !important;
           display: flex;
           flex-direction: column;
           gap: 1.25rem;
-
-          max-height: 45rem;
+          max-height: 38rem;
           overflow-y: auto;
+
 
           &::-webkit-scrollbar {
             width: 8px;
@@ -59,12 +68,12 @@
           }
 
           &::-webkit-scrollbar-thumb {
-            background: #fff;
+            background: darken($blueviolet, 5%);
             border-radius: 4px;
           }
 
           &::-webkit-scrollbar-thumb:hover {
-            background: darken(#fff, 10%);
+            background: darken($oxfordblue, 10%);
           }
         }
 

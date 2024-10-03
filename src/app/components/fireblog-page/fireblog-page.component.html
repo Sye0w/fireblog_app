@@ -7,10 +7,17 @@
   <mat-sidenav-content>
     <div class="fireblog-content">
       <section class="posts-section">
-        <h2><span>Fire</span>blog Posts</h2>
-        <ul>
-          <app-post-card *ngFor="let post of blogPosts" [blogPost]="post"></app-post-card>
-        </ul>
+        <div>
+          <h2><span>Fire</span>blog Posts</h2>
+          <p>({{ blogPosts.length }})</p>
+        </div>
+        @if(blogPosts.length > 0){
+          <ul>
+            <app-post-card *ngFor="let post of blogPosts" [blogPost]="post"></app-post-card>
+          </ul>
+        } @else {
+          
+        }
       </section>
       <app-create-post class="create-post-section" (toggleSidebar)="toggleSidebar($event)"></app-create-post>
     </div>

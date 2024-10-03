@@ -1,7 +1,10 @@
 @use '../../../partials/variables' as *;
 
 .post-card {
-  width: 100%;
+  width: 80%;
+  position: relative;
+  left: 9.875%;
+  right: 15%;
   border-radius: 0.5rem;
   background-color: #fff;
   padding: 1.5rem;
