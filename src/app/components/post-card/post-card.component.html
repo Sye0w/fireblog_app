@@ -4,7 +4,7 @@
     <div class="content-head">
       <div class="title">
         <img [src]="blogPost.user.image || randomAvatarUrl" [alt]="blogPost.user.username">
-        <h3>{{ blogPost.user.username || 'Non' }}</h3>
+        <h3>{{ blogPost.user.username || 'Username missing' }}</h3>
         <p>{{ getTimeSince(blogPost.createdAt) }}</p>
       </div>
       <div class="comments">
@@ -14,6 +14,34 @@
         <p>{{ blogPost.comments.length }} comments</p>
       </div>
     </div>
-    <p>{{ blogPost.content }}</p>
+    <ng-container *ngIf="!isEditing; else editMode">
+      <p>{{ blogPost.content || 'Empty post...'}}</p>
+      <div *ngIf="isCurrentUserPost()" class="post-actions">
+        <button mat-button color="primary" (click)="onEdit()">
+          <mat-icon>edit</mat-icon>
+          Edit
+        </button>
+        <button mat-button color="warn" (click)="onDelete()">
+          <mat-icon>delete</mat-icon>
+          Delete
+        </button>
+      </div>
+    </ng-container>
+    <ng-template #editMode>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Edit post</mat-label>
+        <textarea matInput [(ngModel)]="editedContent" rows="4"></textarea>
+      </mat-form-field>
+      <div class="edit-actions">
+        <button mat-raised-button color="primary" (click)="onSave()">
+          <mat-icon>save</mat-icon>
+          Save
+        </button>
+        <button mat-button (click)="onCancel()">
+          <mat-icon>cancel</mat-icon>
+          Cancel
+        </button>
+      </div>
+    </ng-template>
   </section>
 </li>

@@ -64,4 +64,22 @@
       color: $palesky;
     }
   }
+
+
+  .post-actions, .edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  button {
+    mat-icon {
+      margin-right: 4px;
+    }
+  }
 }

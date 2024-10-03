@@ -1,21 +1,45 @@
 import { Component, Input } from '@angular/core';
 import { LikesComponent } from "../likes/likes/likes.component";
 import { CommonModule } from '@angular/common';
-import { IBlog } from '../../services/blog.interface';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { IBlog, IUser } from '../../services/blog.interface';
+import { FireblogFacadeService } from '../../services/fireblog/fireblog-facade.service';
+// import { FireblogFacadeService } from '../../services/fireblog-facade.service';
 
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [LikesComponent, CommonModule],
+  imports: [
+    LikesComponent,
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
+  ],
   templateUrl: './post-card.component.html',
   styleUrl: './post-card.component.scss'
 })
 export class PostCardComponent {
   @Input() blogPost!: IBlog;
+
   randomAvatarUrl: string = '';
+  currentUser: IUser | null = null;
+  isEditing: boolean = false;
+  editedContent: string = '';
+
+  constructor(private fireblogFacade: FireblogFacadeService) {}
 
   ngOnInit() {
     this.generateRandomAvatarUrl();
+    this.fireblogFacade.getCurrentUser$.subscribe(user => {
+      this.currentUser = user;
+    });
   }
 
   generateRandomAvatarUrl() {
@@ -33,5 +57,41 @@ export class PostCardComponent {
     if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
     if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)} days ago`;
     return `${Math.floor(diffInSeconds / 2592000)} months ago`;
+  }
+
+  isCurrentUserPost(): boolean {
+    return this.currentUser?.uid === this.blogPost.user.uid;
+  }
+
+  onEdit() {
+    this.isEditing = true;
+    this.editedContent = this.blogPost.content;
+  }
+
+  onSave() {
+    if (this.blogPost.id) {
+      this.fireblogFacade.updateBlogPost(this.blogPost.id, { content: this.editedContent })
+        .then(() => {
+          this.blogPost.content = this.editedContent;
+          this.isEditing = false;
+        })
+        .catch(error => console.error('Error updating post:', error));
+    }
+  }
+
+  onCancel() {
+    this.isEditing = false;
+    this.editedContent = '';
+  }
+
+  onDelete() {
+    if (this.blogPost.id) {
+      this.fireblogFacade.deleteBlogPost(this.blogPost.id)
+        .then(() => {
+          // You might want to emit an event here to notify the parent component
+          // that this post has been deleted and should be removed from the list
+        })
+        .catch(error => console.error('Error deleting post:', error));
+    }
   }
 }
