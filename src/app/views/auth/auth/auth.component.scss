@@ -1,19 +1,22 @@
 @use '../../../../partials/_variables.scss' as *;
+@use '../../../../partials/mixins' as *;
 
-main{
+main {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
 
-  h2{
-    color: $blueviolet;
-    font-family: $titlefont;
-    font-size: 2rem;
+
+  h2 {
+    @include title-text;
+    span {
+      @include gradient-text;
+    }
   }
 
-  div{
-    margin-top: 7rem;
+  div {
+    margin-top: 3.75rem;
     display: flex;
     flex-direction: column;
     align-items: center;

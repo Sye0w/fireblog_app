@@ -95,13 +95,10 @@ export class AuthService {
       throw new Error('No authenticated user found');
     }
     try {
-      // Update Auth profile
       await updateProfile(currentUser, {
         displayName: user.username,
         photoURL: user.image
       });
-
-      // Update email if changed
       if (currentUser.email !== user.email) {
         await updateEmail(currentUser, user.email);
       }
