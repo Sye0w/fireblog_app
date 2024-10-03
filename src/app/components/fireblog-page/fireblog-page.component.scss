@@ -1,4 +1,5 @@
 @use '../../../partials/variables' as *;
+@use '../../../partials/mixins' as *;
 
 .fireblog-container {
   padding-top: 2rem;
@@ -47,12 +48,34 @@
 
           max-height: 45rem;
           overflow-y: auto;
+
+          &::-webkit-scrollbar {
+            width: 8px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #fff;
+            border-radius: 4px;
+          }
+
+          &::-webkit-scrollbar-thumb:hover {
+            background: darken(#fff, 10%);
+          }
         }
 
         h2 {
+          @include title-text;
           text-align: center;
           color: $blueviolet;
           font-family: $titlefont;
+          span {
+            @include gradient-text;
+          }
         }
       }
     }

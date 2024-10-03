@@ -12,6 +12,16 @@ import { IBlog } from '../../services/blog.interface';
 })
 export class PostCardComponent {
   @Input() blogPost!: IBlog;
+  randomAvatarUrl: string = '';
+
+  ngOnInit() {
+    this.generateRandomAvatarUrl();
+  }
+
+  generateRandomAvatarUrl() {
+    const seed = Math.random().toString(36).substring(7);
+    this.randomAvatarUrl = `https://api.dicebear.com/9.x/thumbs/svg?seed=${seed}`;
+  }
 
   getTimeSince(createdAt: string): string {
     const now = new Date();
