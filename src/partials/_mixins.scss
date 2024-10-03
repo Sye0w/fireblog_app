@@ -1,12 +1,13 @@
 @use './variables' as *;
 
 @mixin formCard-style{
+
   background-color: #fff;
-  width: 21.5rem;
+  width: 22.5rem;
   border-radius: .75rem;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2.125rem;
   // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
   padding: 1.5rem;
 
@@ -18,7 +19,7 @@
   form {
     display: flex;
     flex-direction: column;
-    gap: 1.125rem;
+    gap: 1.25rem;
 
     input {
       width: 100%;
@@ -84,5 +85,40 @@
         transform: scaleX(1);
       }
     }
+  }
+}
+
+
+@mixin title-text($font-size: 3rem) {
+  font-family: $titlefont;
+  font-size: $font-size;
+  color: $blueviolet;
+  display: inline-block;
+}
+
+@mixin gradient-text($direction: to right, $color1: $supernova, $color2: $grenadier, $color3: $pizazz) {
+  background: linear-gradient($direction, $color1, $color2, $color3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+
+@mixin google-button-style {
+  display: flex;
+  align-items: center !important;
+  justify-content: center;
+  background-color: #fff !important;
+  color: rgba(0, 0, 0, 0.54);
+  border: 1px solid #ccc;
+
+  &:hover {
+    background-color: #f8f8f8;
+  }
+
+  .google-logo {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
   }
 }

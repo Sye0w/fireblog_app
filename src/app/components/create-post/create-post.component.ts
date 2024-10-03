@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './create-post.component.html',
   styleUrl: './create-post.component.scss'
 })
+
 export class CreatePostComponent implements OnInit, OnDestroy {
   @Output() toggleSidebar = new EventEmitter<boolean>();
 

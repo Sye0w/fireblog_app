@@ -3,6 +3,30 @@
 
 section{
   @include formCard-style;
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+
+    mat-divider {
+      flex-grow: 1;
+    }
+
+    span {
+      padding: 0 1rem;
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 0.875rem;
+    }
+  }
+
+  button[mat-raised-button] {
+  width: 100%;
+  margin-top: 1rem;
+  }
+
+  .google-btn {
+    @include google-button-style;
+  }
 }
 
 ::ng-deep .p-toast {
@@ -27,3 +51,4 @@ section{
     }
   }
 }
+

@@ -34,24 +34,9 @@ button[mat-raised-button] {
   }
 }
 
-.google-btn {
-  display: flex;
-  align-items: center !important;
-  justify-content: center;
-  background-color: #fff !important;
-  color: rgba(0, 0, 0, 0.54);
-  border: 1px solid #ccc;
-
-  &:hover {
-    background-color: #f8f8f8;
+  .google-btn {
+    @include google-button-style;
   }
-
-  .google-logo {
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-  }
-}
 
 ::ng-deep .p-toast {
   .p-toast-message {

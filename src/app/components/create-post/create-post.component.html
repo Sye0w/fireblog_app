@@ -1,7 +1,7 @@
 <section class="create-post">
   <div class="content">
     <div class="profile" (click)="toggleSidebarEvent()">
-      <img id="profile-img" src="../../../assets/images/avatars/image-juliusomo.png" alt="" title="toggle sidebar">
+      <img id="profile-img" [src]="currentUser?.image || 'https://api.dicebear.com/9.x/thumbs/svg?seed=Jameson'" alt="" title="toggle sidebar">
       <div>
         <img src="../../../assets/images/icon-edit.svg" alt="">
       </div>

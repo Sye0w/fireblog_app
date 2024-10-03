@@ -3,20 +3,35 @@
   <h4>Register</h4>
   <form [formGroup]="registerForm">
     <div class="form-grp">
-      <input formControlName="email" type="text" placeholder="email">
+      <input formControlName="username" type="text" placeholder="Username">
     </div>
     <div class="form-grp">
-      <input formControlName="password"  type="password" placeholder="password">
+      <input formControlName="email" type="text" placeholder="Email">
     </div>
     <div class="form-grp">
-      <input formControlName="confirmPassword"  type="password" placeholder="confirm password">
+      <input formControlName="password" type="password" placeholder="Password">
+    </div>
+    <div class="form-grp">
+      <input formControlName="confirmPassword" type="password" placeholder="Confirm Password">
     </div>
   </form>
-  <button type="button" mat-button (click)="register()">
-    <p>
-      create account
-    </p>
-  </button>
+  <div>
+    <button type="button" mat-raised-button (click)="register()" [disabled]="isLoading">
+      <p>
+        Create Account
+      </p>
+    </button>
+    <div class="divider">
+      <mat-divider></mat-divider>
+      <span>OR</span>
+      <mat-divider></mat-divider>
+    </div>
+    <button type="button" mat-raised-button class="google-btn" (click)="signInWithGoogle()" [disabled]="isLoading">
+      <img src="../../../../assets/images/google.png" alt="Google logo" class="google-logo">
+      Sign up with Google
+    </button>
+
+  </div>
   <footer>
     <span>Already have an account?</span>
     <a routerLink="/auth/login" class="link-effect">

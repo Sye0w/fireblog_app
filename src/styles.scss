@@ -47,6 +47,10 @@ $fireblog-app-theme: mat.define-light-theme((
   font-family: "kelsons";
   src: url("./assets/Fonts/KelsonSans-Normal.woff2");
 }
+@font-face{
+  font-family: "age";
+  src: url("./assets/Fonts/Age-Normal.woff2");
+}
 
 
 *{
