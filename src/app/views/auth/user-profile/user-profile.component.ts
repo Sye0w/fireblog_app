@@ -99,7 +99,7 @@ export class UserProfileComponent implements OnInit {
   async logOut() {
     try {
       await this.authService.logout();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
     } catch (error) {
       console.error('Error logging out:', error);
       this.snackBar.open('Error logging out', 'Close', {
