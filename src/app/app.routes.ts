@@ -30,12 +30,12 @@ export const routes: Routes = [
       },
       {
         path:'posts',
-        loadComponent: () => import('../app/views/fireblog-page/fireblog-page.component')
+        loadComponent: () => import('../app/components/fireblog-page/fireblog-page.component')
         .then(mod => mod.FireblogPageComponent)
       },
       {
         path:'blog-detail',
-        loadComponent: () => import('../app/views/fireblog-detail/fireblog-detail.component')
+        loadComponent: () => import('../app/components/fireblog-detail/fireblog-detail.component')
         .then(mod => mod.FireblogDetailComponent)
       }
     ]

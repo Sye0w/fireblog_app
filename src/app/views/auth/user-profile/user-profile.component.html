@@ -1,1 +1,24 @@
-<p>user-profile works!</p>
+<section>
+  <h3>User Profile</h3>
+  <form class="profile-form">
+    <div class="profile-image">
+      <img id="profile-img" #userAvatar src="../../../assets/images/avatars/image-juliusomo.png" alt="User Avatar" id="userAvatar">
+      <button mat-mini-fab color="primary" class="upload-btn" (click)="onUploadButtonClick()">
+        <mat-icon>add_a_photo</mat-icon>
+      </button>
+      <input #imageUpload type="file" id="imageUpload" accept="image/*" style="display: none;" (change)="onImageSelected($event)">
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="Enter your username">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Enter your email" type="email">
+    </mat-form-field>
+    <div class="button-group">
+      <button mat-raised-button color="primary" (click)="saveChanges()">Save Changes</button>
+      <button mat-raised-button color="warn" (click)="logOut()">Log Out</button>
+    </div>
+  </form>
+</section>

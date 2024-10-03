@@ -56,9 +56,9 @@ $fireblog-app-theme: mat.define-light-theme((
 }
 
 body {
-  background-color: $whisper;
+  background-color: $whisper !important;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100vh !important;
   font-family: $bodyfont;
   font-weight: 300;
   color: $palesky;

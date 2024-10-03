@@ -1,6 +1,8 @@
 @use '../../../partials/variables' as *;
 
-section{
+
+
+section {
   display: flex;
   gap: 2.75rem;
   position: fixed !important;
@@ -12,27 +14,34 @@ section{
   right: 0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 
-  .content{
+  .content {
     display: flex;
     gap: 3rem;
-    .profile{
+    cursor: pointer;
+
+    .profile {
       display: flex;
       gap: .25rem;
-      cursor: pointer;
-      #profile-img{
+
+      img{
+        width: 12px;
+        height: 12px;
+      }
+
+      #profile-img {
         width: 3rem;
         height: 3rem;
       }
-
     }
-
   }
-  .content-grp{
+
+  .content-grp {
     display: flex;
     flex-direction: column;
     gap: .5rem;
     width: 100%;
-    textarea{
+
+    textarea {
       resize: none;
       border: none;
       outline: none;
@@ -46,7 +55,7 @@ section{
       color: $palesky;
     }
 
-    button{
+    button {
       cursor: pointer;
       align-self: end;
       margin-right: 7rem;

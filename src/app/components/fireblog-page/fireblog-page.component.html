@@ -1,0 +1,16 @@
+<mat-sidenav-container class="fireblog-container">
+  <mat-sidenav #sidenav [opened]="!isSidebarOpen" mode="over" position="start">
+    <!-- Add your sidebar content here -->
+    <app-user-profile/>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="fireblog-content">
+      <section class="posts-section">
+        <h2>Fireblog Posts</h2>
+        <app-post-card></app-post-card>
+      </section>
+      <app-create-post class="create-post-section" (toggleSidebar)="toggleSidebar($event)"></app-create-post>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
