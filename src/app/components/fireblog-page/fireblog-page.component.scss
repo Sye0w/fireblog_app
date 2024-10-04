@@ -76,6 +76,7 @@
         }
 
         h2 {
+          @include shine-effect;
           @include title-text;
           text-align: center;
           color: $blueviolet;
