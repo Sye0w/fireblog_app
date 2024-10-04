@@ -2,8 +2,14 @@
   <div class="comments-list">
     <mat-card *ngFor="let comment of comments" class="comment-card">
       <mat-card-header>
-        <img mat-card-avatar [src]="comment.user.image" [alt]="comment.user.username">
-        <mat-card-title>{{ (comment.user.username || 'Anonymous') | prependAt}}</mat-card-title>
+        <img mat-card-avatar [src]="comment.user.image || randomAvatarUrl" [alt]="comment.user.username">
+        <mat-card-title>
+          @if( currentUser?.uid == comment.user.uid){
+             <p>You</p>
+          } @else {
+            {{ (comment.user.username || 'Anonymous') | prependAt}}
+          }
+        </mat-card-title>
         <mat-card-subtitle>{{ comment.createdAt | date:'medium' }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>

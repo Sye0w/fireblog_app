@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FireblogFacadeService } from '../../services/fireblog/fireblog-facade.service';
-import { IComment } from '../../services/blog.interface';
+import { IComment, IUser } from '../../services/blog.interface';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,8 +28,22 @@ export class CommentsComponent {
   @Input() postId!: string | undefined;
   @Input() comments: IComment[] = [];
   newCommentContent: string = '';
+   randomAvatarUrl: string = '';
+  currentUser: IUser | null = null;
 
   constructor(private fireblogFacade: FireblogFacadeService) {}
+
+  ngOnInit() {
+    this.generateRandomAvatarUrl();
+    this.fireblogFacade.getCurrentUser$.subscribe(user => {
+      this.currentUser = user;
+    });
+  }
+
+  generateRandomAvatarUrl() {
+    const seed = Math.random().toString(36).substring(7);
+    this.randomAvatarUrl = `https://api.dicebear.com/9.x/thumbs/svg?seed=${seed}`;
+  }
 
   addComment() {
     if (this.newCommentContent.trim()) {

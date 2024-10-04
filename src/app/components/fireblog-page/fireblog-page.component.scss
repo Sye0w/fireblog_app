@@ -2,7 +2,6 @@
 @use '../../../partials/mixins' as *;
 
 .fireblog-container {
-  // padding-top: 2rem;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -38,7 +37,6 @@
         flex-direction: column;
         justify-items: center;
         align-items: center;
-        border: 2px solid;
         padding: 1.25rem;
 
         div{
@@ -99,7 +97,7 @@
   z-index: 1000;
 }
 
-// New styles for user profile
+
 .user-profile {
   display: flex;
   flex-direction: column;
