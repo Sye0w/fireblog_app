@@ -28,7 +28,7 @@
       width: 100%;
       justify-content: space-between !important;
       gap: 0.75rem;
-      font-size: 0.75rem;
+      font-size: 0.75rem !important;
 
       .title {
         display: flex;
@@ -50,7 +50,15 @@
       .comments {
         display: flex;
         justify-self: end !important;
-        cursor: pointer;
+
+        .view-comment-btn{
+          font-weight: 600;
+          cursor: pointer;
+          color: $blueviolet;
+          outline: none;
+          border: none;
+          background: transparent
+        }
 
         p {
           font-weight: 500;
