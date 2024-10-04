@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { PrependAtPipe } from '../../pipe/prepend-at.pipe';
+import { AnalyticsService } from '../../services/analytics/fireblog-analytics.service';
 @Component({
   selector: 'app-comments',
   standalone: true,
@@ -31,7 +32,10 @@ export class CommentsComponent {
    randomAvatarUrl: string = '';
   currentUser: IUser | null = null;
 
-  constructor(private fireblogFacade: FireblogFacadeService) {}
+  constructor(
+    private fireblogFacade: FireblogFacadeService,
+    private analyticsService: AnalyticsService
+  ) {}
 
   ngOnInit() {
     this.generateRandomAvatarUrl();
@@ -48,7 +52,7 @@ export class CommentsComponent {
   addComment() {
     if (this.newCommentContent.trim()) {
       this.fireblogFacade.getCurrentUser$.subscribe(user => {
-        if (user && this.postId) {  // Ensure postId is defined
+        if (user && this.postId) {
           const newComment: IComment = {
             content: this.newCommentContent,
             createdAt: new Date().toISOString(),
@@ -65,6 +69,7 @@ export class CommentsComponent {
             .then(() => {
               this.comments.push(newComment);
               this.newCommentContent = '';
+              this.analyticsService.logCommentAdded(this.postId!);
             })
             .catch(error => console.error('Error adding comment:', error));
         } else {

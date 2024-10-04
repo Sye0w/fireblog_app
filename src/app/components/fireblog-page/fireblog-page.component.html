@@ -14,7 +14,11 @@
         @if(blogPosts.length > 0){
           <ul>
             <ng-container *ngFor="let post of blogPosts">
-              <app-post-card [blogPost]="post" (commentToggled)="onToggleComments($event)"></app-post-card>
+              <app-post-card
+                [blogPost]="post"
+                (commentToggled)="onToggleComments($event)"
+                (click)="trackPostView(post)">
+              </app-post-card>
               <app-comments *ngIf="expandedPostId === post.id" [postId]="post.id" [comments]="post.comments"></app-comments>
             </ng-container>
           </ul>
