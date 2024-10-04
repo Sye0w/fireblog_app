@@ -1,4 +1,5 @@
 export interface IBlog {
+  [x: string]: any;
   "id"?: string;
   "content": string;
   "createdAt": string;

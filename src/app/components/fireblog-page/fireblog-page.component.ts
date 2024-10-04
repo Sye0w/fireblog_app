@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, Inject, PLATFORM_ID, Input } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +16,8 @@ import { FireblogFacadeService } from '../../services/fireblog/fireblog-facade.s
 import { IBlog } from '../../services/blog.interface';
 import { CommentsComponent } from "../comments/comments.component";
 import { AnalyticsService } from '../../services/analytics/fireblog-analytics.service';
+import { SafeHtml } from '@angular/platform-browser';
+import { SeoService } from '../../services/seo/fireblog-seo.service';
 
 @Component({
   selector: 'app-fireblog-page',
@@ -42,17 +45,23 @@ export class FireblogPageComponent implements OnInit, OnDestroy {
   isSidebarOpen = false;
   blogPosts: IBlog[] = [];
   expandedPostId: string | null = null;
+  @Input() blogPost!: IBlog;
+  structuredData!: SafeHtml;
   private blogPostsSubscription: Subscription | undefined;
 
   constructor(
     private blogFacade: FireblogFacadeService,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private seoService: SeoService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
-
 
   ngOnInit(): void {
     this.getBlogPosts();
+
   }
+
+
 
   onToggleComments(postId: string) {
     this.expandedPostId = this.expandedPostId === postId ? null : postId;
@@ -61,7 +70,7 @@ export class FireblogPageComponent implements OnInit, OnDestroy {
   }
 
   trackPostView(post: IBlog) {
-    if (post.id && post.comments) {
+    if (post.id && post.content) {
       this.analyticsService.logPostView(post.id, post.content);
     } else {
       console.warn('Attempted to track post view with undefined id or title', post);
@@ -76,11 +85,23 @@ export class FireblogPageComponent implements OnInit, OnDestroy {
 
   getBlogPosts(): void {
     this.blogPostsSubscription = this.blogFacade.getBlogPosts().subscribe(
-      (posts: IBlog[]) => {  this.blogPosts = posts; },
+      (posts: IBlog[]) => {
+        this.blogPosts = posts;
+        this.updateSeoTags();
+      },
       (error: any) => {
         console.error('Error fetching blog posts:', error);
       }
     );
+  }
+
+  updateSeoTags() {
+    this.seoService.setTitle('FireBlog - Latest Posts');
+    this.seoService.setMetaTags([
+      { name: 'description', content: 'Read the latest blog posts on FireBlog' },
+      { name: 'keywords', content: 'blog, posts, fireblog, angular' }
+    ]);
+    this.seoService.setCanonicalLink('/blog');
   }
 
   toggleSidebar(event: boolean) {

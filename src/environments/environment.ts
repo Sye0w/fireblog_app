@@ -8,5 +8,6 @@ export const environment = {
     messagingSenderId: "124792528365",
     appId: "1:124792528365:web:789858ad104062165e5be4",
     measurementId: "G-68MSGEPML3"
-  }
+  },
+  baseUrl:'https://fireblog-app-87945.web.app/'
 };

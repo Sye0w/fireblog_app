@@ -11,6 +11,7 @@ import { IBlog, IUser } from '../../services/blog.interface';
 import { FireblogFacadeService } from '../../services/fireblog/fireblog-facade.service';
 import { CommentsComponent } from "../comments/comments.component";
 import { PrependAtPipe } from '../../pipe/prepend-at.pipe';
+import { SeoService } from '../../services/seo/fireblog-seo.service';
 
 @Component({
   selector: 'app-post-card',
@@ -39,13 +40,31 @@ export class PostCardComponent {
   isEditing: boolean = false;
   editedContent: string = '';
 
-  constructor(private fireblogFacade: FireblogFacadeService) {}
+  constructor(private fireblogFacade: FireblogFacadeService,
+    private seoService: SeoService) {}
 
   ngOnInit() {
     this.generateRandomAvatarUrl();
     this.fireblogFacade.getCurrentUser$.subscribe(user => {
       this.currentUser = user;
     });
+    this.generateStructuredData();
+  }
+
+  generateStructuredData() {
+    const data = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      'headline': this.blogPost.content,
+      'datePublished': this.blogPost.createdAt,
+      'author': {
+        '@type': 'Person',
+        'name': this.blogPost.user.username
+      },
+      'description': this.blogPost.content.substring(0, 200) + '...'
+    };
+
+    this.seoService.setStructuredData(data);
   }
 
   generateRandomAvatarUrl() {
@@ -100,6 +119,7 @@ export class PostCardComponent {
         .catch(error => console.error('Error deleting post:', error));
     }
   }
+
 
   toggleComments() {
     if (this.blogPost.id) {

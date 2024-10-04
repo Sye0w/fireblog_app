@@ -21,11 +21,14 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     provideAnalytics(() => getAnalytics()),
-    provideDatabase(() => getDatabase()),
     providePerformance(() => getPerformance()),
     ScreenTrackingService,
     UserTrackingService,
     provideAnimationsAsync(),
+    {
+      provide: 'BASE_URL',
+      useValue: environment.baseUrl
+    },
     { provide: FireblogFacadeService, useClass: FireblogFacadeService },
     provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
