@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LikesComponent } from "../likes/likes/likes.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,9 +6,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { IBlog, IUser } from '../../services/blog.interface';
 import { FireblogFacadeService } from '../../services/fireblog/fireblog-facade.service';
-// import { FireblogFacadeService } from '../../services/fireblog-facade.service';
+import { CommentsComponent } from "../comments/comments.component";
+import { PrependAtPipe } from '../../pipe/prepend-at.pipe';
 
 @Component({
   selector: 'app-post-card',
@@ -20,13 +22,17 @@ import { FireblogFacadeService } from '../../services/fireblog/fireblog-facade.s
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    CommentsComponent,
+    PrependAtPipe
   ],
   templateUrl: './post-card.component.html',
   styleUrl: './post-card.component.scss'
 })
 export class PostCardComponent {
   @Input() blogPost!: IBlog;
+  @Output() commentToggled = new EventEmitter<string>();
 
   randomAvatarUrl: string = '';
   currentUser: IUser | null = null;
@@ -92,6 +98,12 @@ export class PostCardComponent {
           // that this post has been deleted and should be removed from the list
         })
         .catch(error => console.error('Error deleting post:', error));
+    }
+  }
+
+  toggleComments() {
+    if (this.blogPost.id) {
+      this.commentToggled.emit(this.blogPost.id);
     }
   }
 }
