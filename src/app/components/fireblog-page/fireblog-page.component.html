@@ -13,10 +13,13 @@
         </div>
         @if(blogPosts.length > 0){
           <ul>
-            <app-post-card *ngFor="let post of blogPosts" [blogPost]="post"></app-post-card>
+            <ng-container *ngFor="let post of blogPosts">
+              <app-post-card [blogPost]="post" (commentToggled)="onToggleComments($event)"></app-post-card>
+              <app-comments *ngIf="expandedPostId === post.id" [postId]="post.id" [comments]="post.comments"></app-comments>
+            </ng-container>
           </ul>
         } @else {
-          
+          <p>No blog posts available.</p>
         }
       </section>
       <app-create-post class="create-post-section" (toggleSidebar)="toggleSidebar($event)"></app-create-post>

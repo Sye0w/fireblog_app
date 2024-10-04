@@ -10,11 +10,10 @@ import { CommonModule } from '@angular/common';
 import { PostCardComponent } from "../post-card/post-card.component";
 import { CreatePostComponent } from "../create-post/create-post.component";
 import { UserProfileComponent } from "../../views/auth/user-profile/user-profile.component";
-// import { FireblogFacadeService } from '../services/fireblog-facade.service';
-// import { IBlog } from '../blog.interface';
 import { Subscription } from 'rxjs';
 import { FireblogFacadeService } from '../../services/fireblog/fireblog-facade.service';
 import { IBlog } from '../../services/blog.interface';
+import { CommentsComponent } from "../comments/comments.component";
 
 @Component({
   selector: 'app-fireblog-page',
@@ -32,7 +31,8 @@ import { IBlog } from '../../services/blog.interface';
     MatSnackBarModule,
     PostCardComponent,
     CreatePostComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    CommentsComponent
   ]
 })
 export class FireblogPageComponent implements OnInit, OnDestroy {
@@ -40,12 +40,17 @@ export class FireblogPageComponent implements OnInit, OnDestroy {
 
   isSidebarOpen = false;
   blogPosts: IBlog[] = [];
+  expandedPostId: string | null = null;
   private blogPostsSubscription: Subscription | undefined;
 
   constructor(private blogFacade: FireblogFacadeService) {}
 
   ngOnInit(): void {
     this.getBlogPosts();
+  }
+
+  onToggleComments(postId: string) {
+    this.expandedPostId = this.expandedPostId === postId ? null : postId;
   }
 
   ngOnDestroy(): void {
