@@ -1,0 +1,59 @@
+@use '../../../partials/variables' as *;
+@use '../../../partials/mixins' as *;
+
+section{
+  @include formCard-style;
+
+  #register-btn{
+    background-color: $grenadier;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+
+    mat-divider {
+      flex-grow: 1;
+    }
+
+    span {
+      padding: 0 1rem;
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 0.875rem;
+    }
+  }
+
+  button[mat-raised-button] {
+    width: 100%;
+
+  }
+
+  .google-btn {
+    @include google-button-style;
+  }
+}
+
+::ng-deep .p-toast {
+  .p-toast-message {
+    background-color: transparent;
+
+
+    .p-toast-message-content {
+      background-color: transparent;
+      padding: 1rem;
+
+
+
+      .p-toast-message-text {
+        margin-left: 1rem;
+      }
+    }
+
+    &.p-toast-message-error {
+      background-color: transparent;
+      border-color: $burntsienna;
+    }
+  }
+}
+

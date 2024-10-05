@@ -8,7 +8,7 @@
     <div class="form-grp" *ngIf="!isForgotPasswordMode">
       <input formControlName="password" type="password" placeholder="Password">
     </div>
-    <button type="submit" mat-raised-button color="primary" [disabled]="isLoading">
+    <button id="login-btn" type="submit" mat-raised-button color="primary" [disabled]="isLoading">
       {{ isLoading ? 'Processing...' : (isForgotPasswordMode ? 'Reset Password' : 'Login') }}
     </button>
   </form>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
-import { AuthErrorType, AuthService } from '../../../services/auth/auth.service';
+// import { AuthErrorType, AuthService } from '../../../services/auth/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MatDividerModule } from '@angular/material/divider';
+import { AuthErrorType, AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',

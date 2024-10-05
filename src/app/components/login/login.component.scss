@@ -1,8 +1,26 @@
-@use '../../../../partials/variables' as *;
-@use '../../../../partials/mixins' as *;
+@use '../../../partials/variables' as *;
+@use '../../../partials/mixins' as *;
 
-section{
+section {
   @include formCard-style;
+
+  #login-btn{
+    background-color: $grenadier;
+  }
+
+  .forgot-password {
+    cursor: pointer;
+    color: $burntsienna;
+    text-decoration: underline;
+    margin-top: 1rem;
+    text-align: right;
+  }
+
+  button[mat-raised-button] {
+    width: 100%;
+
+  }
+
   .divider {
     display: flex;
     align-items: center;
@@ -19,26 +37,19 @@ section{
     }
   }
 
-  button[mat-raised-button] {
-  width: 100%;
-  margin-top: 1rem;
-  }
-
-  .google-btn {
-    @include google-button-style;
-  }
+    .google-btn {
+      @include google-button-style;
+    }
 }
+
 
 ::ng-deep .p-toast {
   .p-toast-message {
     background-color: transparent;
 
-
     .p-toast-message-content {
       background-color: transparent;
       padding: 1rem;
-
-
 
       .p-toast-message-text {
         margin-left: 1rem;
@@ -51,4 +62,3 @@ section{
     }
   }
 }
-

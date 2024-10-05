@@ -98,6 +98,7 @@
 
       .create-post-icon {
         background-color: $pizazz;
+        @include shine-effect;
         margin: 0 8rem 3rem 0;
         width: 3rem;
         height: 3rem;

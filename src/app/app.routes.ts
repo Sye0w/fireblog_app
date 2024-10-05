@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthComponent } from './views/auth/auth/auth.component';
-import { LoginComponent } from './views/auth/login/login.component';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
@@ -12,7 +12,7 @@ export const routes: Routes = [
       { path: 'login', component: LoginComponent},
       {
         path: 'register',
-        loadComponent: () => import('./views/auth/register/register.component')
+        loadComponent: () => import('./components/register/register.component')
         .then(mod => mod.RegisterComponent)
       }
     ],
@@ -33,7 +33,7 @@ export const routes: Routes = [
         loadComponent: () => import('../app/components/fireblog-page/fireblog-page.component')
         .then(mod => mod.FireblogPageComponent)
       },
-      
+
     ]
   }
 ];

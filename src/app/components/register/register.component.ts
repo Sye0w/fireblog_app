@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService, AuthErrorType } from '../../../services/auth/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { IUser } from '../../../services/blog.interface';
-import { FireblogFacadeService } from '../../../services/fireblog/fireblog-facade.service';
 import { MatDividerModule } from '@angular/material/divider';
+import { AuthService, AuthErrorType } from '../../services/auth/auth.service';
+import { IUser } from '../../services/blog.interface';
+import { FireblogFacadeService } from '../../services/fireblog/fireblog-facade.service';
 
 @Component({
   selector: 'app-register',
@@ -39,16 +39,10 @@ export class RegisterComponent implements OnInit {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
-    }, { validator: this.passwordMatchValidator });
+    });
   }
 
-  passwordMatchValidator(form: FormGroup) {
-    const password = form.get('password');
-    const confirmPassword = form.get('confirmPassword');
-    return password && confirmPassword && password.value === confirmPassword.value
-      ? null : { mismatch: true };
-  }
+  
 
   async register() {
     if (this.registerForm.valid) {

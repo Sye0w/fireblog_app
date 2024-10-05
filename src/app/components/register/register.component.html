@@ -11,12 +11,9 @@
     <div class="form-grp">
       <input formControlName="password" type="password" placeholder="Password">
     </div>
-    <div class="form-grp">
-      <input formControlName="confirmPassword" type="password" placeholder="Confirm Password">
-    </div>
   </form>
   <div>
-    <button type="button" mat-raised-button (click)="register()" [disabled]="isLoading">
+    <button id="register-btn" type="button" mat-raised-button (click)="register()" [disabled]="isLoading">
       <p>
         Create Account
       </p>
