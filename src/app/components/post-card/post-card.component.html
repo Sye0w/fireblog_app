@@ -1,5 +1,9 @@
 <li class="post-card">
-  <app-likes [likesCount]="blogPost.likes"/>
+  <app-likes
+    [likesCount]="blogPost.likes"
+    [blogPostId]="blogPost.id || ''"
+    (likesUpdated)="onLikesUpdated($event, blogPost)">
+  </app-likes>
   <section class="content">
     <div class="content-head">
       <div class="title">

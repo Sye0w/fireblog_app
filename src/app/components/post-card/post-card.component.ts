@@ -126,4 +126,8 @@ export class PostCardComponent {
       this.commentToggled.emit(this.blogPost.id);
     }
   }
+
+  onLikesUpdated(newLikesCount: string, blogPost: IBlog) {
+    blogPost.likes = newLikesCount;
+  }
 }

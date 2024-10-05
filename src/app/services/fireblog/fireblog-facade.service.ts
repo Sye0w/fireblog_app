@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { collectionData, docData } from '@angular/fire/firestore';
-import { collection, doc, addDoc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
+import { collection, doc, addDoc, updateDoc, deleteDoc, arrayUnion, increment } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IBlog, IComment, IUser } from '../blog.interface';
@@ -83,6 +83,20 @@ export class FireblogFacadeService {
     const blogPostDoc = doc(this.firestore, `fireblogPosts/${postId}`);
     await updateDoc(blogPostDoc, {
       comments: arrayUnion(comment)
+    });
+  }
+
+  async addLike(postId: string): Promise<void> {
+    const blogPostDoc = doc(this.firestore, `fireblogPosts/${postId}`);
+    await updateDoc(blogPostDoc, {
+      likes: increment(1)
+    });
+  }
+
+  async removeLike(postId: string): Promise<void> {
+    const blogPostDoc = doc(this.firestore, `fireblogPosts/${postId}`);
+    await updateDoc(blogPostDoc, {
+      likes: increment(-1)
     });
   }
 }
