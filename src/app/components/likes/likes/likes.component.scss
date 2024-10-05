@@ -27,29 +27,32 @@
     font-weight: 600;
     color: $blueviolet;
     @include shine-effect;
+
+    &.default {
+      color: $blueviolet;
+    }
+
+    &.pizazz {
+      color: $pizazz;
+    }
+
+    &.supernova {
+      color: $supernova;
+    }
+    &.grenadier {
+      color: $grenadier;
+    }
+
+    &.animate {
+      animation: pop 0.3s ease-in-out;
+    }
   }
-  .likes-count {
-    position: relative;
-    display: inline-block;
 
 
-
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
   }
 }
 
-::ng-deep .mat-badge-content {
-  font-size: 8px;
-  width: 8px;
-  height: 8px;
-  line-height: 8px;
-  right: -6px !important;
-  top: -6px !important;
-}
-
-::ng-deep .mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
-  right: -6px;
-}
-
-::ng-deep .mat-badge-medium.mat-badge-above .mat-badge-content {
-  top: -6px;
-}

@@ -11,6 +11,7 @@ import { FireblogFacadeService } from '../../../services/fireblog/fireblog-facad
   templateUrl: './likes.component.html',
   styleUrl: './likes.component.scss'
 })
+
 export class LikesComponent {
   @Input() likesCount!: string;
   @Input() blogPostId!: string;
@@ -30,5 +31,13 @@ export class LikesComponent {
       this.likesCount = (parseInt(this.likesCount) - 1).toString();
       this.likesUpdated.emit(this.likesCount);
     }
+  }
+
+  getLikesCountClass(): string {
+    const count = parseInt(this.likesCount);
+    if (count > 9) return 'pizazz animate';
+    if (count > 6) return 'grenadier animate';
+    if (count > 3) return 'supernova  animate';
+    return 'default animate';
   }
 }
