@@ -1,19 +1,27 @@
-<section class="create-post">
+<section class="create-post" *ngIf="isCreateOpen">
   <div class="content">
-    <div class="profile" (click)="toggleSidebarEvent()">
-      <img id="profile-img" [src]="currentUser?.image || 'https://api.dicebear.com/9.x/thumbs/svg?seed=Jameson'" alt="" title="show profile">
+    <div class="profile">
+      <img id="profile-img" [src]="currentUser?.image || 'https://api.dicebear.com/9.x/thumbs/svg?seed=Jameson'" alt="" >
       <div>
         <img src="../../../assets/images/icon-edit.svg" alt="">
       </div>
     </div>
   </div>
   <div class="content-grp">
-    <textarea name="content" id="post"
-    (keydown.enter)="createPost()"
-     placeholder="Share your thoughts or start writing your story here..."
-    [(ngModel)]="content"></textarea>
-    <button mat-raised-button color="primary" (click)="createPost()" title="create post">
-      create post
-    </button>
+    <textarea
+      name="content"
+      id="post"
+      (keydown.enter)="createPost()"
+      placeholder="Share your thoughts or start writing your story here..."
+      [(ngModel)]="content">
+    </textarea>
+    <div class="button-group">
+      <button id="create-btn" mat-raised-button color="primary" (click)="createPost()" title="create post">
+        Create Post
+      </button>
+      <button mat-button (click)="toggleCreatePost()" title="cancel">
+        Cancel
+      </button>
+    </div>
   </div>
 </section>

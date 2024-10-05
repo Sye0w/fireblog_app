@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, OnDestroy, Inject, PLATFORM_ID, Input } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +17,9 @@ import { CommentsComponent } from "../comments/comments.component";
 import { AnalyticsService } from '../../services/analytics/fireblog-analytics.service';
 import { SafeHtml } from '@angular/platform-browser';
 import { SeoService } from '../../services/seo/fireblog-seo.service';
+import { ProfileAvatarComponent } from "../profile-avatar/profile-avatar.component";
+import { ToggleService } from '../../services/toggle/toggle.service';
+
 
 @Component({
   selector: 'app-fireblog-page',
@@ -36,29 +38,43 @@ import { SeoService } from '../../services/seo/fireblog-seo.service';
     PostCardComponent,
     CreatePostComponent,
     UserProfileComponent,
-    CommentsComponent
-  ]
+    CommentsComponent,
+    ProfileAvatarComponent
+]
 })
 export class FireblogPageComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  isSidebarOpen = false;
+  isSidebarOpen: boolean = false;
+  isCreatePostOpen = false;
+
   blogPosts: IBlog[] = [];
   expandedPostId: string | null = null;
   @Input() blogPost!: IBlog;
   structuredData!: SafeHtml;
+  private sidebarSubscription: Subscription | undefined;
   private blogPostsSubscription: Subscription | undefined;
+  private createPostSubscription!: Subscription;
 
   constructor(
     private blogFacade: FireblogFacadeService,
     private analyticsService: AnalyticsService,
     private seoService: SeoService,
+    private toggle: ToggleService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
     this.getBlogPosts();
-
+    this.sidebarSubscription = this.toggle.sidebarOpen$.subscribe((isOpen: boolean) => {
+      this.isSidebarOpen = isOpen;
+      if (this.sidenav) {
+        isOpen ? this.sidenav.open() : this.sidenav.close();
+      }
+    });
+    this.createPostSubscription = this.toggle.createPostOpen$.subscribe(
+      isOpen => this.isCreatePostOpen = isOpen
+    );
   }
 
 
@@ -81,6 +97,14 @@ export class FireblogPageComponent implements OnInit, OnDestroy {
     if (this.blogPostsSubscription) {
       this.blogPostsSubscription.unsubscribe();
     }
+    if (this.sidebarSubscription) {
+      this.sidebarSubscription.unsubscribe();
+    }
+    this.createPostSubscription.unsubscribe();
+  }
+
+  toggleCreatePost() {
+    this.toggle.toggleCreatePost();
   }
 
   getBlogPosts(): void {
@@ -104,8 +128,12 @@ export class FireblogPageComponent implements OnInit, OnDestroy {
     this.seoService.setCanonicalLink('/blog');
   }
 
-  toggleSidebar(event: boolean) {
-    this.isSidebarOpen = event;
-    this.sidenav.toggle();
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    this.toggle.toggleSidebar();
+  }
+
+  toggleCreatPost(){
+    this.toggle.toggleCreatePost()
   }
 }

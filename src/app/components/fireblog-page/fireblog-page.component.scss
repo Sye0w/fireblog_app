@@ -66,12 +66,12 @@
           }
 
           &::-webkit-scrollbar-thumb {
-            background: darken($blueviolet, 5%);
+            background: darken($blueviolet, 2%);
             border-radius: 4px;
           }
 
           &::-webkit-scrollbar-thumb:hover {
-            background: darken($oxfordblue, 10%);
+            background: darken($blueviolet, 10%);
           }
         }
 
@@ -87,6 +87,26 @@
         }
       }
     }
+
+    .create-post-wrapper {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      align-items: flex-end;
+      z-index: 10;
+
+      .create-post-icon {
+        background-color: $pizazz;
+        margin: 0 8rem 3rem 0;
+        width: 3rem;
+        height: 3rem;
+        z-index: 1;
+        transition: transform 0.3s ease;
+      }
+
+
+    }
   }
 }
 
@@ -96,54 +116,4 @@
   left: 0;
   right: 0;
   z-index: 1000;
-}
-
-
-.user-profile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-
-  h3 {
-    color: $blueviolet;
-    font-family: $titlefont;
-    margin-bottom: 1rem;
-  }
-
-  .profile-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .profile-image {
-      position: relative;
-      margin-bottom: 1rem;
-
-      img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
-      .upload-btn {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        background-color: $blueviolet;
-      }
-    }
-
-    mat-form-field {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-
-    button[mat-raised-button] {
-      background-color: $blueviolet;
-      color: white;
-    }
-  }
 }

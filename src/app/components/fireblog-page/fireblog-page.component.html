@@ -1,6 +1,5 @@
 <mat-sidenav-container class="fireblog-container">
   <mat-sidenav #sidenav [opened]="isSidebarOpen" mode="over" position="start">
-    <!-- Add your sidebar content here -->
     <app-user-profile/>
   </mat-sidenav>
 
@@ -26,7 +25,16 @@
           <p>No blog posts available.</p>
         }
       </section>
-      <app-create-post class="create-post-section" (toggleSidebar)="toggleSidebar($event)"></app-create-post>
+      <app-profile-avatar
+        (toggleSidebar)="toggleSidebar()"
+        [isSidebarOpen]="isSidebarOpen"
+      ></app-profile-avatar>
+    </div>
+    <div class="create-post-wrapper">
+      <button mat-fab color="primary" class="create-post-icon" title="create=post" (click)="toggleCreatePost()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <app-create-post *ngIf="isCreatePostOpen" class="create-post-section"></app-create-post>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

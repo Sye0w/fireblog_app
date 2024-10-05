@@ -6,36 +6,44 @@ import { Subscription } from 'rxjs';
 import { IUser } from '../../services/blog.interface';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ProfileAvatarComponent } from "../profile-avatar/profile-avatar.component";
+import { ToggleService } from '../../services/toggle/toggle.service';
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatIconModule, ProfileAvatarComponent],
   templateUrl: './create-post.component.html',
   styleUrl: './create-post.component.scss'
 })
 
 export class CreatePostComponent implements OnInit, OnDestroy {
-  @Output() toggleSidebar = new EventEmitter<boolean>();
-
   currentUser: IUser | null = null;
   private userSubscription: Subscription | undefined;
+  private createPostSubscription!: Subscription;
   content = '';
   isSidebarOpen = false;
+  isCreateOpen: boolean = false;
 
-  constructor(private blogFacade: FireblogFacadeService) {}
+
+  constructor(private blogFacade: FireblogFacadeService,
+    private toggle: ToggleService
+  ) {}
 
   ngOnInit() {
     this.userSubscription = this.blogFacade.getCurrentUser$.subscribe(user => {
       this.currentUser = user;
-      console.log(user);
     });
+    this.createPostSubscription = this.toggle.createPostOpen$.subscribe(
+      (isOpen:boolean) => this.isCreateOpen = isOpen
+    );
   }
 
   ngOnDestroy() {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe();
     }
+    this.createPostSubscription.unsubscribe();
   }
 
   createPost() {
@@ -53,8 +61,8 @@ export class CreatePostComponent implements OnInit, OnDestroy {
     }
   }
 
-  toggleSidebarEvent() {
-    this.isSidebarOpen = !this.isSidebarOpen;
-    this.toggleSidebar.emit(this.isSidebarOpen);
+  toggleCreatePost() {
+    this.toggle.toggleCreatePost();
   }
+
 }

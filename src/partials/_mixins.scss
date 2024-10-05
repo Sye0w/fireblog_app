@@ -153,3 +153,10 @@
     transform: translateX(100%) rotate(30deg);
   }
 }
+
+
+@mixin profile-rounded{
+  border-radius: 50% !important;
+  width: 3rem;
+  height: 3rem;
+}

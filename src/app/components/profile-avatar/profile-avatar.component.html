@@ -1,0 +1,8 @@
+<div class="content" [class.hidden]="isSidebarOpen">
+  <div class="profile" (click)="toggleSidebarEvent()">
+    <img id="profile-img" [src]="currentUser?.image || 'https://api.dicebear.com/9.x/thumbs/svg?seed=Jameson'" alt="" title="show profile">
+    <div>
+      <img src="../../../assets/images/icon-edit.svg" alt="">
+    </div>
+  </div>
+</div>

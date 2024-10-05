@@ -7,7 +7,6 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
 import { environment } from '../environments/environment.development';
-import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { FireblogFacadeService } from './services/fireblog/fireblog-facade.service';

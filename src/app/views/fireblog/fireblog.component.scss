@@ -1,12 +1,19 @@
 @use '../../../partials/variables' as *;
 
-main{
+main {
   height: 100%;
-  // width: 100%;
   display: flex;
   justify-content: center;
-  // align-items: center;
-  // padding-top: 2rem;
   font-family: $bodyfont;
-
+  position: relative;  // Add this
+  .floating-avatar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;  
+  }
 }
+
+
+
+
